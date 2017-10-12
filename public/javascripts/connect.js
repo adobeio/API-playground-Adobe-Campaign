@@ -11,7 +11,10 @@ $(function() {
 	});
 
 	socket.on('message', function(msg) {
-		console.log(msg);
+		console.log(msg.status + ": " + msg.text);
+		if(msg.status == ('Fail')) {
+			$('.alert').text(msg.text).show();
+		}
 	});
 
 	socket.on('CampaignConnection', function() {
@@ -22,6 +25,8 @@ $(function() {
 	}
 
 	$( "#campaignCredentials" ).submit(function( event ) {
+
+		$('.alert').hide();
 
 		event.preventDefault();
 

@@ -157,10 +157,10 @@ io.on('connection', function (socket) {
       if (JSON.parse(body).access_token) {
         campaignAccessToken = "Bearer " + JSON.parse(body).access_token;
         console.log("campaignAccessToken:" + campaignAccessToken);
-        socket.emit('message', "Campaign Access Token Generated. Campaign Access Token: " + campaignAccessToken);
+        socket.emit('message', {status:'Success', text:"Campaign Access Token generated. Campaign Access Token: " + campaignAccessToken});
         socket.emit('CampaignConnection');
       } else {
-        socket.emit('message', "Campaign Access Token undefined, please check your credentials.");
+        socket.emit('message', {status:'Fail', text:"Campaign Access Token can't be generated, please check your credentials."});
       }
     });
   });

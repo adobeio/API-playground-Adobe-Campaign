@@ -14,35 +14,36 @@ $(function() {
 	});
 
 	socket.on('campaignCredentials', function(credentials) {
-		if (credentials.clientID) {
+		if (credentials.clientID && credentials.clientSecret && credentials.jwtToken && credentials.accessToken && credentials.tenant && credentials.endPoint) {
 			campaignClientID = credentials.clientID;
 			$('.clientID').text(campaignClientID);
-		}
-		if (credentials.clientSecret) {
+
 			campaignClientSecret = credentials.clientSecret;
 			$('.clientSecret').text(campaignClientSecret);
-		}
-		if (credentials.jwtToken) {
+
 			campaignJWTToken = credentials.jwtToken;
 			$('.jwtToken').text(campaignJWTToken);
-		}
-		if (credentials.accessToken) {
+
 			campaignAccessToken = credentials.accessToken;
 			$('.accessToken').text(campaignAccessToken);
-		}
-		if (credentials.tenant) {
+
 			campaignTenant = credentials.tenant;
 			$('.tenant').text(campaignTenant);
-		}
-		if (credentials.endPoint) {
+
 			campaignEndpoint = credentials.endPoint;
 			$('.endPoint').text(campaignEndpoint);
 			$('#getQuery').val(campaignEndpoint+"/");
+		} else {
+			// if there's no campaign connection, go back to the credentials page
+			window.location.replace(window.location.protocol + '//' + window.location.host);
 		}
 	});
 
 	socket.on('message', function(msg) {
-		console.log(msg);
+		console.log(msg.status + "/t" + msg.text);
+		if(msg.status.contains('Fail')) {
+			alert (msg.text);
+		}
 	});
 
 	socket.on('campaignQuerySuccess', function(info) {
