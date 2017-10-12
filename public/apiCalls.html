@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Adobe Campaign Standard API Playground</title>
+
+	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/stylesheets/style.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+	<div class="row">
+		<div class="container">
+			<h2>Adobe Campaign Standard API Playground</h2>
+			<p class="lead">Now you can start playing with your ACS instance!</p>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="container">
+			<button type="button" class="btn btn-info" data-toggle="collapse" data-target="#credentials">Show Campaign Credentials</button>
+			<br>
+			<div id="credentials" class="collapse">
+				<div class="panel panel-info">
+					<div class="panel-body">
+						<p><b>Client ID: </b><span class="clientID"></span></p>
+						<p><b>Client Secret: </b><span class="clientSecret"></span></p>
+						<p><b>JWT Token: </b><span class="jwtToken"></span></p>
+						<p><b>Access Token: </b><span class="accessToken"></span></p>
+						<p><b>Tenant: </b><span class="tenant"></span></p>
+						<p><b>Campaign Endpoint: </b><span class="endPoint"></span></p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="container">
+			<ul class="nav nav-tabs">
+				<li class="active">
+					<a href="#1" data-toggle="tab">Sample Query</a>
+				</li>
+				<li>
+					<a href="#2" data-toggle="tab">"GET" More Profiles</a>
+				</li>
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane active" id="1">
+					<p>Simple GET example query to retrieve the first 10 email values from <a href="https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#lets-start-with-the-api">documentation</a></p>
+					<pre><code>var sampleQuery = {
+	method: '<span class="sampleQueryMethod"></span>',
+	url: '<span class="endPoint"></span><span class="sampleQuery"></span>',
+	headers: {
+		'cache-control': 'no-cache',
+		'x-api-key': '<span class="clientID"></span>',
+		authorization: <span class="accessToken"></span>,
+		'content-type': 'application/json;charset=utf-8'
+	}
+};</code></pre>
+					<button type="button" class="btn btn-default" id="sample-query-button">Run Sample Query</button>
+					<div id="sample-query-results" hidden="true"></div>
+				</div>
+				<div class="tab-pane" id="2">
+					<p>Try to construct your own query and run it here:</p>
+
+					<p>Just to give you a few idea...(if you are feeling too lazy too look at the docs)</p>
+					<p>
+					<ul>
+						<li>
+							<p>
+								Use this one to get a profile by email address
+							</p>
+							<p>
+								<span class="endPoint"></span>/profileAndServices/profile/byEmail?email=putemailhere@adobe.com
+							</p>
+						</li>
+						<li>
+							<p>
+								Now this one gets the first entry in your profile list, and returns it in xml instead of the default json
+							</p>
+							<p>
+								<span class="endPoint"></span>/profileAndServices/profile/email.xml?_lineCount=1
+							</p>
+						</li>
+					</ul>
+					</p>
+
+					<div class="form-group">
+						<label for="getQuery">Query</label>
+						<input type="text" class="form-control" id="getQuery" placeholder="">
+						<small id="getQueryHelp" class="form-text text-muted">See some samples <a href="https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#get-post-patch-delete">here</a></small>
+					</div>
+
+
+					<button type="button" class="btn btn-default" id="get-query-button">Run Your Query</button>
+					<div id="get-query-results" hidden="true"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="//ajax.aspnetcdn.com/ajax/jquery.templates/beta1/jquery.tmpl.js"></script>
+<script type="text/javascript" src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/javascripts/apicalls.js"></script>
+
+
+</body>
+
+</html>
