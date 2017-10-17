@@ -30,17 +30,17 @@ $(function() {
 
 		event.preventDefault();
 
-		var jwtToken = $( "input#jwtToken" ).val();
 		var clientSecret = $( "input#clientSecret" ).val();
 		var clientID = $( "input#clientID" ).val();
 		var tenant = $( "input#tenant" ).val();
+		var orgID = $( "input#orgID" ).val();
+		var technicalAccount = $( "input#technicalAccount" ).val();
 
-		if (jwtToken) {console.log("jwtToken: " + jwtToken);}
 		if (clientSecret) {console.log("clientSecret: " + clientSecret);}
 		if (clientID) {console.log("clientID: " + clientID);}
 		if (tenant) {console.log("tenant: " + tenant);}
 
-		socket.emit('getCampaignAccessToken', {jwtToken: jwtToken, clientSecret: clientSecret, clientID: clientID, tenant: tenant});
+		socket.emit('getCampaignAccessToken', {clientSecret: clientSecret, clientID: clientID, tenant: tenant, orgID: orgID, technicalAccount: technicalAccount});
 	});
 
 });

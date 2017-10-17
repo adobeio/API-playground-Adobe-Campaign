@@ -117,7 +117,7 @@ function onListening() {
   debug('Listening on ' + bind);
 }
 
-var campaignClientID, campaignClientSecret, campaignJWTToken, campaignAccessToken, campaignTenant, campaignEndpoint;
+var campaignClientID, campaignClientSecret, campaignJWTToken, campaignAccessToken, campaignTenant, campaignOrgID, campaignTechnicalAccount, campaignEndpoint;
 
 io.on('connection', function (socket) {
   socket.emit('welcome', {});
@@ -126,7 +126,8 @@ io.on('connection', function (socket) {
 
     campaignClientID = campaignCredentials.clientID;
     campaignClientSecret = campaignCredentials.clientSecret;
-    campaignJWTToken = campaignCredentials.jwtToken;
+    campaignOrgID = campaignCredentials.orgID;
+    campaignTechnicalAccount = campaignCredentials.technicalAccount;
     campaignTenant = campaignCredentials.tenant;
     campaignEndpoint = 'https://mc.adobe.io/' + campaignTenant + '/campaign';
 
@@ -135,6 +136,24 @@ io.on('connection', function (socket) {
     //console.log("campaignJWTToken: " + campaignJWTToken);
     //console.log("campaignTenant: " + campaignTenant);
     //console.log("campaignEndpoint: " + campaignEndpoint);
+
+    // not so secret private key
+    var pem = fs.readFileSync('./cert/secret.key').toString('ascii');
+    // console.log(pem);
+
+    var aud = "https://ims-na1.adobelogin.com/c/" + campaignClientID;
+
+    var jwtPayload = {
+      "exp": Math.round(87000 + Date.now()/1000),
+      "iss": campaignOrgID,
+      "sub": campaignTechnicalAccount,
+      "https://ims-na1.adobelogin.com/s/ent_campaign_sdk": true,
+      "aud": aud
+    };
+
+    // console.log(jwtPayload);
+    campaignJWTToken = jwt.encode(jwtPayload, pem, 'RS256');
+    console.log("jwtToken: " + campaignJWTToken);
 
     // get campaign access tokens
     var campaignAccessTokenOptions = {
