@@ -40,9 +40,9 @@ $(function() {
 	});
 
 	socket.on('message', function(msg) {
-		console.log(msg.status + "/t" + msg.text);
-		if(msg.status.contains('Fail')) {
-			alert (msg.text);
+		console.log(msg.status + ": " + msg.text);
+		if(msg.status == ('Fail')) {
+			$('.alert').text(msg.text).show();
 		}
 	});
 
