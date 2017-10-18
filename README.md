@@ -3,15 +3,15 @@
 
 # How does it work
 
-## Create Campaign Integration on Adobe I/O
+## 1. Create Campaign Integration on Adobe I/O
   Follow [this documentation](https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#adobeio-configuration) to create a Campaign Integration on [Adobe I/O Console](https://console.adobe.io/integrations). Once your integration has been created (it should look something like this picture below) and you have your private key in hand. You are ready to play with the website!
   
   ![screenshot 2017-10-12 16 03 49](https://user-images.githubusercontent.com/7494850/31523228-1d64a7b8-af67-11e7-9c0d-b5fa6e228b6a.png)
   
-## Clone repo and update /cert/secret.key file
+## 2. Clone repo and update /cert/secret.key file
   When you are creating your integration on I/O, you should have created a secret.key file for your secret key. Now, copy paste that value into the /cert/secret.key file.
 
-## Run it!
+## 3. Run it!
   After you've updated your secret.key file, you are all set to run it!
   ```sh
   $ npm install

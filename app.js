@@ -119,8 +119,18 @@ function onListening() {
 
 var campaignClientID, campaignClientSecret, campaignJWTToken, campaignAccessToken, campaignTenant, campaignOrgID, campaignTechnicalAccount, campaignEndpoint;
 
+
 io.on('connection', function (socket) {
   socket.emit('welcome', {});
+
+  var pem = fs.readFileSync('./cert/secret.key').toString('ascii');
+  console.log("PEM: " + pem);
+  if (pem.match("^//")) {
+    // do this if begins with Hello
+    socket.emit('message', {status:'Fail', text:"ERROR: You need update your /cert/secret.key file in order to generate a correct JWT token."});
+  } else {
+    socket.emit('message', {status:'Success', text:"secret.key file looks right"});
+  }
 
   socket.on('getCampaignAccessToken', function (campaignCredentials) {
 
@@ -136,10 +146,6 @@ io.on('connection', function (socket) {
     //console.log("campaignJWTToken: " + campaignJWTToken);
     //console.log("campaignTenant: " + campaignTenant);
     //console.log("campaignEndpoint: " + campaignEndpoint);
-
-    // not so secret private key
-    var pem = fs.readFileSync('./cert/secret.key').toString('ascii');
-    // console.log(pem);
 
     var aud = "https://ims-na1.adobelogin.com/c/" + campaignClientID;
 
