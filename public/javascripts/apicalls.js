@@ -32,7 +32,14 @@ $(function() {
 
 			campaignEndpoint = credentials.endPoint;
 			$('.endPoint').text(campaignEndpoint);
+
+			// update queries
+			var postQuery = 'profileAndServices/profile/';
+
 			$('#getQuery').val(campaignEndpoint+"/");
+			$('#postQuery').val(campaignEndpoint+"/"+postQuery);
+			$('#patchQuery').val(campaignEndpoint+"/"+postQuery+"PUT_PKEY_HERE");
+			$('#deleteQuery').val(campaignEndpoint+"/"+postQuery+"PUT_PKEY_HERE");
 		} else {
 			// if there's no campaign connection, go back to the credentials page
 			window.location.replace(window.location.protocol + '//' + window.location.host);
@@ -61,14 +68,59 @@ $(function() {
 
 	$('#sample-query-button').on('click', function (e) {
 		var url = campaignEndpoint + sampleQuery;
+
+		$('.sample-query-results-label').removeAttr('hidden');
+
 		socket.emit('runCampaignQuery', {method:sampleQueryMethod, url:url, returnCSSSelector: '#sample-query-results'});
 	});
 
 	$('#get-query-button').on('click', function (e) {
 		var url = $('#getQuery').val();
 		var method = 'GET';
+
+		$('.getQueryMethod').text(method);
+		$('.getQuery').text(url);
+		$('#get-query').removeAttr('hidden');
+
 		socket.emit('runCampaignQuery', {method:method, url:url, returnCSSSelector: '#get-query-results'});
-	})
+	});
+
+	$('#post-query-button').on('click', function (e) {
+		var url = $('#postQuery').val();
+		var body = $('#postQueryBody').val();
+		var method = 'POST';
+
+		$('.postQueryMethod').text(method);
+		$('.postQuery').text(url);
+		$('.postQueryBody').text(body);
+		$('#post-query').removeAttr('hidden');
+
+		socket.emit('runCampaignQuery', {method:method, url:url, body:body, returnCSSSelector: '#post-query-results'});
+	});
+
+	$('#patch-query-button').on('click', function (e) {
+		var url = $('#patchQuery').val();
+		var body = $('#patchQueryBody').val();
+		var method = 'PATCH';
+
+		$('.patchQueryMethod').text(method);
+		$('.patchQuery').text(url);
+		$('.patchQueryBody').text(body);
+		$('#patch-query').removeAttr('hidden');
+
+		socket.emit('runCampaignQuery', {method:method, url:url, body:body, returnCSSSelector: '#patch-query-results'});
+	});
+
+	$('#delete-query-button').on('click', function (e) {
+		var url = $('#deleteQuery').val();
+		var method = 'DELETE';
+
+		$('.deleteQueryMethod').text(method);
+		$('.deleteQuery').text(url);
+		$('#delete-query').removeAttr('hidden');
+
+		socket.emit('runCampaignQuery', {method:method, url:url, returnCSSSelector: '#delete-query-results'});
+	});
 
 
 });

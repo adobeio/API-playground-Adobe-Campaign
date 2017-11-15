@@ -205,7 +205,8 @@ io.on('connection', function (socket) {
         'x-api-key': campaignClientID,
         authorization: campaignAccessToken,
         'content-type': 'application/json;charset=utf-8'
-      }
+      },
+      body: queryParam.body
     };
 
     request(campaignQuery, function (error, response, body) {

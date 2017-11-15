@@ -47,13 +47,28 @@
 					<a href="#1" data-toggle="tab">Sample Query</a>
 				</li>
 				<li>
-					<a href="#2" data-toggle="tab">"GET" More Profiles</a>
+					<a href="#2" data-toggle="tab">"GET" More</a>
+				</li>
+				<li>
+					<a href="#3" data-toggle="tab">"POST" Something</a>
+				</li>
+				<li>
+					<a href="#4" data-toggle="tab">"PATCH" It</a>
+				</li>
+				<li>
+					<a href="#5" data-toggle="tab">"DELETE" This</a>
+				</li>
+				<li>
+					<a href="#6" data-toggle="tab">FAQ and Everything else</a>
 				</li>
 			</ul>
 
 			<div class="tab-content">
 				<div class="tab-pane active" id="1">
-					<p>Simple GET example query to retrieve the first 10 email values from <a href="https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#lets-start-with-the-api">documentation</a></p>
+					<p>Simple GET example query to retrieve the first 10 emails in your ACS instance. Read more about it on <a href="https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#lets-start-with-the-api">documentation</a></p>
+					<button type="button" class="btn btn-default" id="sample-query-button">Run Sample Query</button>
+					<hr>
+					<p>Query:</p>
 					<pre><code>var sampleQuery = {
 	method: '<span class="sampleQueryMethod"></span>',
 	url: '<span class="endPoint"></span><span class="sampleQuery"></span>',
@@ -64,26 +79,26 @@
 		'content-type': 'application/json;charset=utf-8'
 	}
 };</code></pre>
-					<button type="button" class="btn btn-default" id="sample-query-button">Run Sample Query</button>
+					<p class="sample-query-results-label" hidden="true">Response:</p>
 					<div id="sample-query-results" hidden="true"></div>
 				</div>
 				<div class="tab-pane" id="2">
-					<p>Try to construct your own query and run it here:</p>
+					<p>Try to construct your own GET query and run it here:</p>
 
-					<p>Just to give you a few idea...(if you are feeling too lazy too look at the docs)</p>
+					<p>To give you a few idea...(if you are feeling too lazy too look at <a href="https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#let-39-s-start-with-the-api">the docs</a>)</p>
 					<p>
 					<ul>
 						<li>
 							<p>
-								Use this one to get a profile by email address
+								<strong>Use this one to get a profile by email address</strong>
 							</p>
 							<p>
-								<span class="endPoint"></span>/profileAndServices/profile/byEmail?email=putemailhere@adobe.com
+								<span class="endPoint"></span>/profileAndServices/profile/byEmail?email=PUTEMAILHERE@adobe.com
 							</p>
 						</li>
 						<li>
 							<p>
-								Now this one gets the first entry in your profile list, and returns it in xml instead of the default json
+								<strong>Now this one gets the first entry in your profile list, and returns it in xml instead of the default json</strong>
 							</p>
 							<p>
 								<span class="endPoint"></span>/profileAndServices/profile/email.xml?_lineCount=1
@@ -92,15 +107,181 @@
 					</ul>
 					</p>
 
+					<hr>
+
 					<div class="form-group">
-						<label for="getQuery">Query</label>
+						<label for="getQuery">URL</label>
 						<input type="text" class="form-control" id="getQuery" placeholder="">
+
 						<small id="getQueryHelp" class="form-text text-muted">See some samples <a href="https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#get-post-patch-delete">here</a></small>
 					</div>
 
+					<button type="button" class="btn btn-default" id="get-query-button">Run Your GET Query</button>
 
-					<button type="button" class="btn btn-default" id="get-query-button">Run Your Query</button>
+					<div id="get-query" hidden="true">
+						<hr>
+						<p>Query:</p>
+						<pre><code>var yourGETQuery = {
+	method: '<span class="getQueryMethod"></span>',
+	url: '<span class="getQuery"></span>',
+	headers: {
+		'cache-control': 'no-cache',
+		'x-api-key': '<span class="clientID"></span>',
+		authorization: <span class="accessToken"></span>,
+		'content-type': 'application/json;charset=utf-8'
+	}
+};</code></pre>
+						<p>Response:</p>
+					</div>
 					<div id="get-query-results" hidden="true"></div>
+				</div>
+				<div class="tab-pane" id="3">
+					<p>As you'd expect, POST allows you to create a resource, how about adding a new profiles (me, for instance) to your ACS instance?</p>
+
+					<hr>
+
+					<div class="form-group">
+						<label for="postQuery">URL</label>
+						<input type="text" class="form-control" id="postQuery" placeholder="">
+						<small class="form-text text-muted">A sample POST url looks like this: https://mc.adobe.io/{tenant}/campaign/profileAndServices/{resourceName}/. Here we are creating a profile, so {resourceName} is just profile.</small>
+
+						<br><br>
+						<label for="postQueryBody">Body</label>
+						<input type="text" class="form-control" id="postQueryBody" placeholder="post query body" value='{"firstName":"Sarah", "lastName":"Xu","email":"sarahsfakeemail@adobe.com"}'>
+
+						<small id="postQueryHelp" class="form-text text-muted">See some samples <a href="https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#get-post-patch-delete">here.</a>
+						The body should contain fields that you'd like for this new profile. No worries if you leave some fields blank, it will just be initiated to a default value or left empty.
+						I only listed three basic fields here (firstName, lastName and email), you can add additional fields such as gender, phone, title... any field that's available to a profile can be added. Try it out!</small>
+					</div>
+
+					<button type="button" class="btn btn-default" id="post-query-button">Run Your POST Query</button>
+
+					<div id="post-query" hidden="true">
+						<hr>
+						<p>Query:</p>
+						<pre><code>var yourPOSTQuery = {
+	method: '<span class="postQueryMethod"></span>',
+	url: '<span class="postQuery"></span>',
+	headers: {
+		'cache-control': 'no-cache',
+		'x-api-key': '<span class="clientID"></span>',
+		authorization: <span class="accessToken"></span>,
+		'content-type': 'application/json;charset=utf-8'
+	},
+	body: '<span class="postQueryBody"></span>'
+};</code></pre>
+						<p>Response:</p>
+					</div>
+
+					<div id="post-query-results" hidden="true"></div>
+				</div>
+
+				<div class="tab-pane" id="4">
+					<p>Life is not perfect, so we need PATCH. To quote documentation: PUT and PATCH are both used to update an entity. PATCH updates only the specified property and keeps the pre-existing value unmodified
+						while PUT needs all properties to be specified. Any unspecified property will be reset. We are only gonna try out PATCH here. Now, let's try to update a profile with it.</p>
+					<p>Fun fact: apparently a ton of celebrity have said "I'm not perfect." according to <a href="https://www.brainyquote.com/topics/not_perfect">brain quote.</a> Thanks for the life lesson y'all :P</p>
+
+					<div class="form-group">
+						<label for="patchQuery">URL</label>
+						<input type="text" class="form-control" id="patchQuery" placeholder="">
+						<small class="form-text text-muted">Sample PATCH pattern: https://mc.adobe.io/{tenant}/campaign/profileAndServices/{resourceName}/[$Pkey].
+							I've filled in the value all the way up till [$Pkey] aka Profile Key for you, so don't forget to update your Pkey value before running the query! (You can run a GET to get the PKey for a particular profile)</small>
+
+						<br><br>
+						<label for="patchQueryBody">Body</label>
+						<input type="text" class="form-control" id="patchQueryBody" placeholder="patch query body" value='{"firstName":"Sarah", "lastName":"Xu","email":"sarahsfakeemail@adobe.com"}'>
+
+						<small class="form-text text-muted">See some samples <a href="https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#get-post-patch-delete">here.</a>
+							The body should contain fields that you'd like for this new profile. No worries if you leave some fields blank, it will just be initiated to a default value or left empty.
+							I only listed three basic fields here (firstName, lastName and email), you can add additional fields such as gender, phone, title... any field that's available to a profile can be added. Try it out!</small>
+					</div>
+
+					<button type="button" class="btn btn-default" id="patch-query-button">Run Your PATCH Query</button>
+
+					<div id="patch-query" hidden="true">
+						<hr>
+						<p>Query:</p>
+						<pre><code>var yourPATCHQuery = {
+							method: '<span class="patchQueryMethod"></span>',
+							url: '<span class="patchQuery"></span>',
+							headers: {
+							'cache-control': 'no-cache',
+							'x-api-key': '<span class="clientID"></span>',
+							authorization: <span class="accessToken"></span>,
+							'content-type': 'application/json;charset=utf-8'
+							},
+							body: '<span class="patchQueryBody"></span>'
+							};</code></pre>
+						<p>Response:</p>
+					</div>
+
+					<div id="patch-query-results" hidden="true"></div>
+				</div>
+
+				<div class="tab-pane" id="5">
+					<p>Last but not least, it's always important to know how to DELETE unwanted stuff.</p>
+
+					<div class="form-group">
+						<label for="deleteQuery">URL</label>
+						<input type="text" class="form-control" id="deleteQuery" placeholder="">
+						<small class="form-text text-muted">Sample DELETE pattern: https://mc.adobe.io/{tenant}/campaign/profileAndServices/{resourceName}/[$Pkey].
+							I've filled in the value all the way up till [$Pkey] for you, so don't forget to update your Pkey value before running the query.
+							*Careful before deleting*!</small>
+					</div>
+
+					<button type="button" class="btn btn-default" id="delete-query-button">Run Your DELETE Query</button>
+
+					<div id="delete-query" hidden="true">
+						<hr>
+						<p>Query:</p>
+						<pre><code>var yourDELETEQuery = {
+	method: '<span class="deleteQueryMethod"></span>',
+	url: '<span class="deleteQuery"></span>',
+	headers: {
+		'cache-control': 'no-cache',
+		'x-api-key': '<span class="clientID"></span>',
+		authorization: <span class="accessToken"></span>,
+		'content-type': 'application/json;charset=utf-8'
+	}
+};</code></pre>
+						<p>Response:</p>
+					</div>
+
+					<div id="delete-query-results" hidden="true"></div>
+				</div>
+
+				<div class="tab-pane" id="6">
+					<h3>
+						FAQ
+					</h3>
+					<p><strong>Q: Who built this?</strong></p>
+					<p>A: An amazing soul gifted to ear... can't event finish that sentence -- my name is Sarah Xu and I'm the Developer Evangelist for <a href="https://www.adobe.io/">Adobe I/O</a>. I built this simple app to help new ACS developers kick off their implementation.</p>
+					<p><strong>Q: What's happening on the authentication end?</strong></p>
+					<p>A: First of all, you can read the code in <a href="https://github.com/adobeio/API-playground-Adobe-Campaign/blob/master/app.js">apps.js</a>. That's where the code for authentication lives.
+						A little bit about what's happening behind the scene: the secret.key, alongside all the credentials that you entered, allows me to create a jwt payload to make a jwt token.
+						I then used the jwt token to exchange for an access token from Adobe IMS (which I'm 80% sure stands for Adobe Identity Management Service).
+						The tenant ID you entered allow me to build the endpoint for your API calls. Voila, you can now make API calls to your ACS instance.
+						You can read a bit more about the authentication steps <a href="https://www.adobe.io/apis/cloudplatform/console/authentication/gettingstarted.html">here</a> on adobe.io.</p>
+					<p><strong>Q: Any known issues?</strong></p>
+					<p>A: Of course, out of laziness (not too lazy to write it out here but too lazy to write it in code) and lack of time, I didn't put in any mechanism for jwt token and access token renewal.
+						If you are building a real integration, keep in mind that they both expire, and you will need to renew periodically to make sure you app works.</p>
+					<p><strong>Q: What should I do if I run into problems?</strong></p>
+					<p>A: If your calls are failing, you should always refer to the <a href="https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#troubleshooting">troubleshooting section</a> on ACS API documentation.
+						However, if you can't find the answer there, feel free to reach out to me through GitHub. You can open a new issue and tag me at <a href="https://github.com/sarahxxu">@sarahxxu</a> </p>
+					<p><strong>Q: Can I contribute?</strong></p>
+					<p>A: Please do! I'm no front-end expert so I kind of patched this interface together. I'd really appreciate it if you could help me make it better!
+						If you find any bugs, issues, or features that you'd like to add to this app, you can either open a new issue (and I'll try to get it in), or write it yourself and open a pull request! :)</p>
+					<hr>
+					<h3>
+						Resources
+					</h3>
+					<ul>
+						<li>
+							<p>
+								Your best friend would be <a href="https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#introduction">the official documentation on ACS API</a>
+							</p>
+						</li>
+					</ul>
 				</div>
 			</div>
 		</div>
