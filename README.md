@@ -8,9 +8,7 @@
 
 To set up the playground:
 
-1. Create A Campaign Integration on Adobe I/O
-
-To create a Campaign integration on the [Adobe I/O Console](https://console.adobe.io/integrations), follow the [Campaign configuration instructions](https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#adobeio-configuration). Once created, the details appear similar to those shown below:
+1. Create a Campaign integration on the [Adobe I/O Console](https://console.adobe.io/integrations). Follow the [Campaign configuration instructions](https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#adobeio-configuration). Once created, the details appear similar to those shown below:
   
   ![screenshot 2017-10-12 16 03 49](https://user-images.githubusercontent.com/7494850/31523228-1d64a7b8-af67-11e7-9c0d-b5fa6e228b6a.png)
   
@@ -25,12 +23,12 @@ To create a Campaign integration on the [Adobe I/O Console](https://console.adob
   $ npm install
   $ npm start
   ```
-  Now if you go to https://localhost:3000, you should be able to see this view. Follow the instruction, paste in your credentials (which can be found in your I/O integration), and you are ready to start!
+Browse to https://localhost:3000 and follow the shown instruction. Paste your credentials (which can be found in your I/O integration), and you are ready to start!
 
  ![screenshot 2017-10-12 16 02 29](https://user-images.githubusercontent.com/7494850/31523179-d91b0836-af66-11e7-93a9-0a67da85e9d9.png)
 
 # Author
 - Sarah Xu [@sarahxxu](https://github.com/sarahxxu).
 
-# Lincense
+# License
 [MIT](LICENSE)
