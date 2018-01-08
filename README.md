@@ -1,7 +1,7 @@
 # Adobe Campaign Standard API Playground
   Try this simple app to locally run and talk to your Adobe Campaign Standard (ACS) instance!
 
-1. [Setup](#Set Up the Playground)
+1. [Set Up the Playground](#Setup)
 1. [Run](#Run It!)
 
 ## <a name="Setup">Setup</a>
