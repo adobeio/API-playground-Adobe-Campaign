@@ -1,10 +1,16 @@
 # Adobe Campaign Standard API Playground
-  This is a simple app that you can run locally to talk to your ACS instance!
+  Try this simple app to locally run and talk to your Adobe Campaign Standard (ACS) instance!
 
-# How does it work
+## Setup the Playground
+Run It!
 
-## 1. Create Campaign Integration on Adobe I/O
-  Follow [this documentation](https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#adobeio-configuration) to create a Campaign Integration on [Adobe I/O Console](https://console.adobe.io/integrations). Once your integration has been created (it should look something like this picture below) and you have your private key in hand. You are ready to play with the website!
+## Setup
+
+To set up the playground:
+
+## 1. Create A Campaign Integration on Adobe I/O
+
+Create a Follow [this documentation](https://docs.campaign.adobe.com/doc/standard/en/api/ACS_API.html#adobeio-configuration) to create a Campaign Integration on [Adobe I/O Console](https://console.adobe.io/integrations). Once your integration has been created (it should look something like this picture below) and you have your private key in hand. You are ready to play with the website!
   
   ![screenshot 2017-10-12 16 03 49](https://user-images.githubusercontent.com/7494850/31523228-1d64a7b8-af67-11e7-9c0d-b5fa6e228b6a.png)
   
